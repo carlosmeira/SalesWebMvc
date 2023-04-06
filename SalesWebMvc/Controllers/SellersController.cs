@@ -2,6 +2,7 @@
 using SalesWebMvc.Models;
 using SalesWebMvc.Models.ViewModels;
 using SalesWebMvc.Services;
+using SalesWebMvc.Services.Exceptions;
 
 namespace SalesWebMvc.Controllers
 {
@@ -88,9 +89,9 @@ namespace SalesWebMvc.Controllers
 			SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
 			return View(viewModel);
 		}
-		/*[HttpPost]
+		[HttpPost]
 		[ValidateAntiForgeryToken]
-		/*public IActionResult Edit(int id, Seller seller)
+		public IActionResult Edit(int id, Seller seller)
 		{
 			if (id != seller.Id)
 			{
@@ -101,11 +102,16 @@ namespace SalesWebMvc.Controllers
 				_sellerService.Update(seller);
 				return RedirectToAction(nameof(Index));
 			}
-			catch (ApplicationException e)
+			catch (NotFoundException)
 			{
-				return RedirectToAction(nameof(Error), new { message = e.Message });
+				return NotFound();
 			}
-		}
+			catch (DbConcurrencyException)
+			{
+				return BadRequest();
+			}
+		}/*
+		
 		public IActionResult Error(string message)
 		{
 			var viewModel = new ErrorViewModel
