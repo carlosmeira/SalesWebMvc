@@ -4,7 +4,9 @@ namespace SalesWebMvc.Models
 {
     public class SalesRecord
     {
+#pragma warning disable CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
         public SalesRecord() { }
+#pragma warning restore CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
 
         public SalesRecord(int id, DateTime date, double amount, SaleStatus status, Seller seller)
         {
