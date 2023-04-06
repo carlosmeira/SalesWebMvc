@@ -19,10 +19,13 @@ namespace SalesWebMvc.Models
         public int Id { get; set; }
 
         [Display(Name = "Name")]
+        [Required(ErrorMessage = "{0} required.")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} size should be between {2} and {1}")]
         public string Name { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mail")]
+        [EmailAddress(ErrorMessage = "Enter a valid e-mail address.")]
         public string Email { get; set; }
 
         [Display(Name = "Birth Date")]
@@ -31,6 +34,8 @@ namespace SalesWebMvc.Models
 
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Required]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} must be from {1} to {2}")]
         public double BaseSalary { get; set; }
 
         [Display(Name = "Department")]
